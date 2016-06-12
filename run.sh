@@ -39,7 +39,7 @@ build_source () {
 	fi
 
 	cd $BUILD_DIR	
-	cmake ../src && make
+	cmake .. && make
 	cd $ROOT_DIR
 }
 

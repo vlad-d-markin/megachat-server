@@ -1,6 +1,10 @@
 aux_source_directory(. SRC_LIST)
 
-include_directories(${PROJECT_SOURCE_DIR}/lib/include ${CMAKE_CURRENT_SOURCE_DIR}/headers)
+add_compile_options("-std=c++11")
+
+include_directories(${PROJECT_SOURCE_DIR}/lib/include)
+include_directories(./headers)
+
 add_library(mega-networklib STATIC IMPORTED)
 set_target_properties(mega-networklib PROPERTIES IMPORTED_LOCATION ${PROJECT_SOURCE_DIR}/lib/libmegachat-networklib.a)
 

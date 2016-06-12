@@ -3,16 +3,25 @@
 
 #include <vector>
 
+#include <interfaces/itcplistenerlistener.h>
+#include <tcplistener.h>
+#include <activeclient.h>
+#include <eventmanager.h>
 
-
-class ActiveClientList
+class ActiveClientList : public ITcpListenerListener
 {
 private:
-    std::vector<void*> m_active_users;
+    std::vector<ActiveClient *> m_active_users;
+    TcpListener *               m_tcp_listener;
+    EventManager *              m_event_manager;
 
 
 public:
-    ActiveClientList();
+    ActiveClientList(EventManager * event_manager);
+    ~ActiveClientList();
+
+    virtual void onAccepted(TcpSocket *socket);
+    virtual void onClosed();
 };
 
 #endif // ACTIVECLIENTLIST_H

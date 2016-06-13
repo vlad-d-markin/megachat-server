@@ -18,6 +18,9 @@ public:
 
     bool putNewMessage(const Message& message);
 
+    // ActiveClient (sender) <- onMessageDelivered(message_id) (not) <x ActiveClient (recipient, offline)
+    // ActiveClient (sender) <- onMessageDelivered(message_id) (depends on recipient response) <- ActiveClient (recipient, online)
+
 //    bool
 };
 

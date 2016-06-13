@@ -18,7 +18,13 @@ public:
 
     int run();
 
+    // getSpooler
+    // getClientList
+
 private:
 };
 
 #endif //MEGACHAT_SERVER_SERVER_H
+
+
+// Server::instance()->getSpooler()->putMessage();

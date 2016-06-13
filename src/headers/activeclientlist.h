@@ -8,7 +8,7 @@
 #include <activeclient.h>
 #include <eventmanager.h>
 
-class ActiveClientList : public ITcpListenerListener
+class ActiveClientList : public ITcpListenerListener, IActiveClientListener
 {
 private:
     std::vector<ActiveClient *> m_active_users;
@@ -22,6 +22,11 @@ public:
 
     virtual void onAccepted(TcpSocket *socket);
     virtual void onClosed();
+
+    void registerClient(ActiveClient * client);
+    void unregisterClient(ActiveClient * client);
+
+    virtual void onClientClosed(ActiveClient * client);
 };
 
 #endif // ACTIVECLIENTLIST_H

@@ -20,8 +20,31 @@ ActiveClientList::~ActiveClientList()
     {
         delete *it;
     }
+
+    m_active_users.clear();
 }
 
+
+
+void ActiveClientList::registerClient(ActiveClient *client)
+{
+    m_active_users.push_back(client);
+}
+
+
+
+void ActiveClientList::unregisterClient(ActiveClient * client)
+{
+    for(auto it = m_active_users.begin(); it != m_active_users.end(); it++)
+    {
+        if(*it == client)
+        {
+            delete client;
+            m_active_users.erase(it);
+            break;
+        }
+    }
+}
 
 
 
@@ -32,14 +55,20 @@ ActiveClientList::~ActiveClientList()
 void ActiveClientList::onAccepted(TcpSocket *socket)
 {
     // Handle incoming connection
-    ActiveClient * new_client = new ActiveClient(socket);
+    ActiveClient * new_client = new ActiveClient(socket, this);
 
-    m_active_users.push_back(new_client);
+    registerClient(new_client);
 }
 
 
 
 void ActiveClientList::onClosed()
 {
+    // Called from TcpListener
+}
 
+
+void ActiveClientList::onClientClosed(ActiveClient *client)
+{
+    unregisterClient(client);
 }
